@@ -26,14 +26,17 @@ class Deck(object):
     def shuffle(self):
         # shuffle the cards
         random.shuffle(self.decks)
+    
+    def reset(self):
+        self.decks = list(self.contents)
+        random.shuffle(self.decks)
 
     def pop(self):
         # pop the top card out and hand it to the player
         card = self.decks.pop(0)
         if self.is_black_jack and card[0]>10:
-            card[0] = 10
+            card = (10, card[1])
         # for num_deck = 0, pick up with replacement
         if self.num_deck == 0:
-            self.decks = list(self.contents)
-            random.shuffle(self.decks)
+            self.reset()
         return card
